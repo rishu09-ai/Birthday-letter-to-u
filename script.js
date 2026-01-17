@@ -1,9 +1,11 @@
 let page = 1;
 
 function next() {
-  document.getElementById("p" + page).classList.remove("active");
+  const current = document.getElementById("p" + page);
+  if (current) current.classList.remove("active");
   page++;
-  document.getElementById("p" + page).classList.add("active");
+  const nextPage = document.getElementById("p" + page);
+  if (nextPage) nextPage.classList.add("active");
 }
 
 /* COUNTDOWN */
@@ -36,7 +38,6 @@ function cutCake() {
   slice.style.opacity = "1";
   slice.style.transform = "translateX(60px)";
 
-  // Fireworks
   for (let i = 0; i < 40; i++) {
     const f = document.createElement("div");
     f.className = "firework";
