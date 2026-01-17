@@ -1,40 +1,44 @@
 let page = 1;
 
 function next() {
-  const current = document.getElementById("p" + page);
-  if (current) current.classList.remove("active");
+  const cur = document.getElementById("p" + page);
+  if (cur) cur.classList.remove("active");
+
   page++;
-  const nextPage = document.getElementById("p" + page);
-  if (nextPage) nextPage.classList.add("active");
+  const nxt = document.getElementById("p" + page);
+  if (nxt) nxt.classList.add("active");
 }
 
-/* COUNTDOWN */
+/* ✅ FIXED COUNTDOWN */
 function countdown() {
+  const hEl = document.getElementById("h");
+  const mEl = document.getElementById("m");
+  const sEl = document.getElementById("s");
+
   const now = new Date();
   let target = new Date(now.getFullYear(), 0, 18, 0, 0, 0);
   if (now > target) target.setFullYear(now.getFullYear() + 1);
 
   setInterval(() => {
     const diff = target - new Date();
-    document.getElementById("h").innerText =
-      String(Math.floor(diff / 3600000)).padStart(2, "0");
-    document.getElementById("m").innerText =
-      String(Math.floor(diff / 60000) % 60).padStart(2, "0");
-    document.getElementById("s").innerText =
-      String(Math.floor(diff / 1000) % 60).padStart(2, "0");
+
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff / 60000) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    hEl.innerText = String(hours).padStart(2, "0");
+    mEl.innerText = String(minutes).padStart(2, "0");
+    sEl.innerText = String(seconds).padStart(2, "0");
   }, 1000);
 }
+
 countdown();
 
-/* CAKE CUT + FIREWORKS */
+/* CAKE CUT */
 function cutCake() {
-  const knife = document.querySelector(".knife");
+  document.querySelector(".knife").style.left = "50px";
+
   const slice = document.getElementById("slice");
-
-  knife.style.transition = "1s";
-  knife.style.left = "50px";
-
-  slice.style.transition = "1s";
   slice.style.opacity = "1";
   slice.style.transform = "translateX(60px)";
 
@@ -43,8 +47,8 @@ function cutCake() {
     f.className = "firework";
     f.style.left = "50%";
     f.style.top = "40%";
-    f.style.setProperty("--x", (Math.random()*400-200)+"px");
-    f.style.setProperty("--y", (Math.random()*400-200)+"px");
+    f.style.setProperty("--x", (Math.random() * 400 - 200) + "px");
+    f.style.setProperty("--y", (Math.random() * 400 - 200) + "px");
     document.body.appendChild(f);
     setTimeout(() => f.remove(), 1200);
   }
